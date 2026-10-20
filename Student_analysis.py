@@ -104,3 +104,30 @@ print(f"Pass Percentage: {pass_percentage:.2f}%")
 print("\nStudent Results:")
 print(df[["Student_ID", "Result"]].to_string(index=False))
 
+# Study Hours vs Performance Analysis
+
+print("\n--- Study Hours vs Performance Analysis ---")
+
+# Calculate average marks for each student
+df["Average_Marks"] = df[
+    ["Math_Marks", "Science_Marks", "English_Marks"]
+].mean(axis=1)
+
+# Calculate correlation between study hours and average marks
+correlation = df["Study_Hours"].corr(df["Average_Marks"])
+
+print(f"Correlation: {correlation:.2f}")
+
+if correlation > 0:
+    print("The dataset shows a positive relationship.")
+elif correlation < 0:
+    print("The dataset shows a negative relationship.")
+else:
+    print("No linear relationship detected in this dataset.")
+
+# Compare average marks by study hours
+study_analysis = df.groupby("Study_Hours")["Average_Marks"].mean()
+
+print("\nAverage Marks by Study Hours:")
+print(study_analysis.round(2))
+
