@@ -75,3 +75,32 @@ best_subject = subject_averages.idxmax()
 
 print("\nSubject with Highest Class Average:", best_subject)
 
+# Pass/Fail Analysis
+
+PASS_MARK = 40
+
+subjects = ["Math_Marks", "Science_Marks", "English_Marks"]
+
+# A student passes only if they score at least 40 in every subject
+df["Result"] = df[subjects].ge(PASS_MARK).all(axis=1).map(
+    {True: "Pass", False: "Fail"}
+)
+
+total_students = len(df)
+passed_students = (df["Result"] == "Pass").sum()
+failed_students = (df["Result"] == "Fail").sum()
+
+pass_percentage = (
+    (passed_students / total_students) * 100
+    if total_students > 0 else 0
+)
+
+print("\n--- Pass/Fail Analysis ---")
+print("Total Students:", total_students)
+print("Passed Students:", passed_students)
+print("Failed Students:", failed_students)
+print(f"Pass Percentage: {pass_percentage:.2f}%")
+
+print("\nStudent Results:")
+print(df[["Student_ID", "Result"]].to_string(index=False))
+
