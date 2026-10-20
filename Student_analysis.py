@@ -1,26 +1,33 @@
 
 import pandas as pd
 
-data = {
-    "Student": ["Amit", "Priya", "Rahul", "Sneha", "Rohit"],
-    "Python": [78, 85, 45, 92, 32],
-    "SQL": [80, 90, 50, 88, 35],
-    "Excel": [75, 95, 55, 91, 40]
-}
+# Load the student dataset
+df = pd.read_csv("student_analysis.csv")
 
-df = pd.DataFrame(data)
+print("Original dataset shape:", df.shape)
 
-df["Average"] = df[["Python", "SQL", "Excel"]].mean(axis=1)
-df["Result"] = df["Average"].apply(
-    lambda marks: "Pass" if marks >= 40 else "Fail"
-)
+# Check missing values
+print("\nMissing values in each column:")
+print(df.isnull().sum())
 
-print("STUDENT MARKS ANALYSIS")
-print(df.to_string(index=False))
+# Check duplicate rows
+duplicate_count = df.duplicated().sum()
+print("\nDuplicate rows:", duplicate_count)
 
-print("\nClass Average:", round(df["Average"].mean(), 2))
-print("Students Passed:", (df["Result"] == "Pass").sum())
-print("Students Failed:", (df["Result"] == "Fail").sum())
+# Remove duplicate rows
+df = df.drop_duplicates()
 
-df.to_csv("student_analysis.csv", index=False)
-print("\nResults saved to student_analysis.csv")
+# Check for invalid marks (marks should be between 0 and 100)
+mark_columns = [
+    "Math_Marks",
+    "Science_Marks",
+    "English_Marks"
+]
+
+for column in mark_columns:
+    invalid_count = ((df[column] < 0) | (df[column] > 100)).sum()
+    print(f"Invalid values in {column}: {invalid_count}")
+
+# Display cleaned dataset information
+print("\nCleaned dataset shape:", df.shape)
+print("\nData cleaning completed successfully!")
