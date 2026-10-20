@@ -131,3 +131,31 @@ study_analysis = df.groupby("Study_Hours")["Average_Marks"].mean()
 print("\nAverage Marks by Study Hours:")
 print(study_analysis.round(2))
 
+import matplotlib.pyplot as plt
+
+# Student Marks Distribution Chart
+
+df["Average_Marks"] = df[
+    ["Math_Marks", "Science_Marks", "English_Marks"]
+].mean(axis=1)
+
+plt.figure(figsize=(8, 5))
+
+plt.hist(
+    df["Average_Marks"],
+    bins=5,
+    edgecolor="black"
+)
+
+plt.title("Distribution of Student Average Marks")
+plt.xlabel("Average Marks")
+plt.ylabel("Number of Students")
+plt.tight_layout()
+
+# Save chart to a file
+plt.savefig("student_marks_distribution.png", dpi=300)
+
+plt.show()
+
+print("Chart saved as student_marks_distribution.png")
+
