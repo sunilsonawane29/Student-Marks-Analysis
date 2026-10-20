@@ -159,3 +159,26 @@ plt.show()
 
 print("Chart saved as student_marks_distribution.png")
 
+
+import matplotlib.pyplot as plt
+
+# Visualize the distribution of student marks
+plt.figure(figsize=(8, 5))
+
+plt.hist(
+    df["Average_Marks"],
+    bins=5,
+    edgecolor="black"
+)
+
+plt.title("Distribution of Student Average Marks")
+plt.xlabel("Average Marks")
+plt.ylabel("Number of Students")
+plt.tight_layout()
+
+# Save the chart
+plt.savefig("student_marks_distribution.png", dpi=300)
+
+plt.show()
+
+print("Student marks distribution chart saved successfully!")
