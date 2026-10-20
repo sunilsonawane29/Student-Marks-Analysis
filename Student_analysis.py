@@ -53,3 +53,25 @@ print(f"Lowest Student Average: {lowest_average:.2f}")
 print("\nStudent-wise Average Marks:")
 print(df[["Student_ID", "Average_Marks"]].to_string(index=False))
 
+# Subject-Wise Performance Analysis
+
+subjects = ["Math_Marks", "Science_Marks", "English_Marks"]
+
+print("\n--- Subject-Wise Performance Analysis ---")
+
+for subject in subjects:
+    average = df[subject].mean()
+    highest = df[subject].max()
+    lowest = df[subject].min()
+
+    print(f"\nSubject: {subject}")
+    print(f"Average Marks: {average:.2f}")
+    print(f"Highest Marks: {highest}")
+    print(f"Lowest Marks: {lowest}")
+
+# Identify the subject with the highest class average
+subject_averages = df[subjects].mean()
+best_subject = subject_averages.idxmax()
+
+print("\nSubject with Highest Class Average:", best_subject)
+
